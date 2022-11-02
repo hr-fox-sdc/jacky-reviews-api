@@ -1,0 +1,24 @@
+{
+  "name": "jacky-reviews-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hr-fox-sdc/jacky-reviews-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hr-fox-sdc/jacky-reviews-api/issues"
+  },
+  "homepage": "https://github.com/hr-fox-sdc/jacky-reviews-api#readme",
+  "dependencies": {
+    "axios": "^1.1.3",
+    "express": "^4.18.2"
+  }
+}
