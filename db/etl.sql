@@ -8,3 +8,13 @@ FROM '/Users/jake/repos/hack-reactor/jacky-reviews-api/data/reviews_photos.csv'
 DELIMITER ','
 CSV HEADER;
 
+COPY characteristics(id, product_id, name)
+FROM '/Users/jake/repos/hack-reactor/jacky-reviews-api/data/characteristics.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY characteristic_reviews(id, characteristic_id, review_id, value)
+FROM '/Users/jake/repos/hack-reactor/jacky-reviews-api/data/characteristic_reviews.csv'
+DELIMITER ','
+CSV HEADER;
+
