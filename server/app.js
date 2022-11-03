@@ -132,12 +132,12 @@ app.get('/reviews/meta', (req, res) => {
 
 app.put('/reviews/:id/helpful', (req, res) => {
   pool.query(`UPDATE reviews SET helpfulness = helpfulness+1 WHERE id = ${req.params.id}`)
-    .then(() => res.sendStatus(200));
+    .then(() => res.status(200).end());
 });
 
 app.put('/reviews/:id/report', (req, res) => {
   pool.query(`UPDATE reviews SET reported = true WHERE id = ${req.params.id}`)
-    .then(() => res.sendStatus(200));
+    .then(() => res.status(200).end());
 
 });
 
