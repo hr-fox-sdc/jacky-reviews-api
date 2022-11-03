@@ -131,15 +131,44 @@ app.get('/reviews/meta', (req, res) => {
 });
 
 app.put('/reviews/:id/helpful', (req, res) => {
-  // req.params.id
+  pool.query(`UPDATE reviews SET helpfulness = helpfulness+1 WHERE id = ${req.params.id}`)
+    .then(() => res.sendStatus(200));
 });
 
 app.put('/reviews/:id/report', (req, res) => {
-  // req.params.id
+  pool.query(`UPDATE reviews SET reported = true WHERE id = ${req.params.id}`)
+    .then(() => res.sendStatus(200));
+
 });
 
 app.post('/reviews', (req, res) => {
+  pool.query(`INSERT INTO reviews(product_id, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
+              VALUES (${req.body.product_id}, ${req.body.rating}, '${new Date().getTime()}', '${req.body.summary}', '${req.body.body}', ${req.body.recommend}, ${false}, '${req.body.name}', '${req.body.email}', ${null}, ${0})
+              RETURNING id`
+              ).then(data => {
+                let queries = [];
+                //console.log(data.rows[0].id);
 
+                Object.keys(req.body.characteristics).forEach(key => {
+                  queries.push(pool.query(`INSERT INTO characteristic_reviews
+                                           (characteristic_id, review_id, value)
+                                           VALUES
+                                           (${Number(key)}, ${data.rows[0].id}, ${req.body.characteristics[key]})`
+                                           ));
+                });
+
+                req.body.photos.forEach(photo => {
+                  queries.push(pool.query(`INSERT INTO reviews_photos
+                                           (review_id, url)
+                                           VALUES
+                                           (${data.rows[0].id}, '${photo}')`
+                                           ));
+                });
+
+                Promise.all(queries).then(() => {
+                  res.sendStatus(201);
+                });
+              });
 });
 
 let port = 4000;

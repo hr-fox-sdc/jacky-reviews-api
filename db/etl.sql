@@ -18,3 +18,18 @@ FROM '/Users/jake/repos/hack-reactor/jacky-reviews-api/data/characteristic_revie
 DELIMITER ','
 CSV HEADER;
 
+-- These selects fix the auto incrementing of ID
+SELECT setval('reviews_id_seq', COALESCE((SELECT MAX(id)+1 FROM reviews), 1), false);
+SELECT setval('reviews_photos_id_seq', COALESCE((SELECT MAX(id)+1 FROM reviews_photos), 1), false);
+SELECT setval('characteristic_id_seq', COALESCE((SELECT MAX(id)+1 FROM characteristics), 1), false);
+SELECT setval('characteristic_reviews_id_seq', COALESCE((SELECT MAX(id)+1 FROM characteristic_reviews), 1), false);
+
+SELECT MAX(id) FROM reviews;
+SELECT MAX(id) FROM reviews_photos;
+SELECT MAX(id) FROM characteristics;
+SELECT MAX(id) FROM characteristic_reviews;
+-- These should be the same in console, if not, the first 4 selects are broken
+SELECT nextval('reviews_id_seq');
+SELECT nextval('reviews_photos_id_seq');
+SELECT nextval('characteristics_id_seq');
+SELECT nextval('characteristic_reviews_id_seq');
