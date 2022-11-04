@@ -24,12 +24,18 @@ SELECT setval('reviews_photos_id_seq', COALESCE((SELECT MAX(id)+1 FROM reviews_p
 SELECT setval('characteristic_id_seq', COALESCE((SELECT MAX(id)+1 FROM characteristics), 1), false);
 SELECT setval('characteristic_reviews_id_seq', COALESCE((SELECT MAX(id)+1 FROM characteristic_reviews), 1), false);
 
+-- These should be the same in console, they are a test to see if the 4 lines above did what they should
 SELECT MAX(id) FROM reviews;
 SELECT MAX(id) FROM reviews_photos;
 SELECT MAX(id) FROM characteristics;
 SELECT MAX(id) FROM characteristic_reviews;
--- These should be the same in console, if not, the first 4 selects are broken
 SELECT nextval('reviews_id_seq');
 SELECT nextval('reviews_photos_id_seq');
 SELECT nextval('characteristics_id_seq');
 SELECT nextval('characteristic_reviews_id_seq');
+
+CREATE INDEX reviews_product_id_index on reviews (product_id);
+CREATE INDEX review_photos_review_id_index on reviews_photos (review_id);
+CREATE INDEX characteristics_product_id_index on characteristics (product_id);
+CREATE INDEX characteristic_reviews_review_id_index on characteristic_reviews (review_id);
+
