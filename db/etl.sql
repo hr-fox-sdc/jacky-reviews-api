@@ -36,6 +36,8 @@ SELECT nextval('characteristic_reviews_id_seq');
 
 CREATE INDEX reviews_product_id_index on reviews (product_id);
 CREATE INDEX review_photos_review_id_index on reviews_photos (review_id);
+CREATE INDEX characteristic_reviews_characteristic_id_index on characteristic_reviews (characteristic_id);
 CREATE INDEX characteristics_product_id_index on characteristics (product_id);
-CREATE INDEX characteristic_reviews_review_id_index on characteristic_reviews (review_id);
+CREATE INDEX characteristics_id_index on characteristics (id);
+
 

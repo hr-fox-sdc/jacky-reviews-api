@@ -13,6 +13,8 @@ brew services start postgresql
 
 npm install
 
+change host in server/helpers.js:4
+
 cd db/
 createdb ratingsandreviews
 psql ratingsandreviews

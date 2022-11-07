@@ -5,7 +5,12 @@ const { getReviews, getReviewMeta, markHelpful, markReported, postReview} = requ
 var app = express();
 app.use(express.json());
 
-//TODO: ROUTES
+const logger = (request, response, next) => {
+  console.info(`Received ${request.method} request to endpoint ${request.url}.`);
+  next();
+};
+
+app.use(logger);
 
 app.get('/reviews', (req, res) => {
   getReviews(req, res);
